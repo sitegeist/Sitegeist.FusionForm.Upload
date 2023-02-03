@@ -1,0 +1,41 @@
+prototype(Sitegeist.FusionForm.Upload:SingleFileUpload)  < prototype(Neos.Fusion.Form:Component.Field) {
+
+  attributes.type = "file"
+
+  renderer = afx`
+    <input
+      @if.has={Type.instance(field.getCurrentValue(), 'Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile')}
+      type="hidden" name={field.getName() + '[originallySubmittedResource][__identity]'}
+      value={field.getCurrentValue().persistenceObjectIdentifier}
+    />
+    <input
+      name={field.getName()}
+      {...props.attributes}
+    />
+  `
+}
+
+prototype(Sitegeist.FusionForm.Upload:MultiFileUpload)  < prototype(Neos.Fusion.Form:Component.Field) {
+
+  attributes.type = "file"
+
+  renderer = afx`
+    <Neos.Fusion:Loop items={field.getCurrentValue()} itemName="item" @if={field.getCurrentValue()}>
+      <input
+        @if.has={Type.instance(item, 'Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile')}
+        type="hidden" name={field.getName() + '[][originallySubmittedResource][__identity]'}
+        value={item.persistenceObjectIdentifier}
+      />
+    </Neos.Fusion:Loop>
+    <input type="hidden" name={field.getName() + '[]'} />
+    <input type="hidden" name={field.getName() + '[]'} />
+    <input type="hidden" name={field.getName() + '[]'} />
+    <input type="hidden" name={field.getName() + '[]'} />
+    <input type="hidden" name={field.getName() + '[]'} />
+    <input
+      multiple={true}
+      name={field.getName() + '[]'}
+      {...props.attributes}
+    />
+  `
+}

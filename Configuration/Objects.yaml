@@ -1,0 +1,9 @@
+Sitegeist\FusionForm\Upload\Storage\CachedUploadedFileStorage:
+  properties:
+    cache:
+      object:
+        factoryObjectName: Neos\Flow\Cache\CacheManager
+        factoryMethodName: getCache
+        arguments:
+          1:
+            value: Sitegeist_FusionForm_Upload_UploadedFileCache
