@@ -19,9 +19,11 @@ of the psr-uploaded file that has an additional cache-identifier. For uploading 
 `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection` is added aswell. For both classed type converters 
 are provided that ensure that values are cached and previously submitted values are restored for processing.
 
-### Single File - `Sitegeist.FusionForm.Upload:SingleFileUpload`
+### Fusion prototype - `Sitegeist.FusionForm.Upload:Upload`
 
-The prototype `Sitegeist.FusionForm.Upload:SingleFileUpload` allows to render a single file field. 
+#### Single file upload
+
+The prototype `Sitegeist.FusionForm.Upload:Upload` allows to render a single file field. 
 It will usually be rendered in a field-container together with a rendering of previously uploaded files.
 The submitted value should be interpreted as `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile` by the
 receiving controller or the runtime form schema.
@@ -35,7 +37,7 @@ receiving controller or the runtime form schema.
     </Neos.Fusion:Fragment>
 
     <!-- the form field -->
-    <Sitegeist.FusionForm.Upload:SingleFileUpload />
+    <Sitegeist.FusionForm.Upload:Upload />
 
 </Neos.Fusion.Form:FieldContainer>
 ```
@@ -48,20 +50,17 @@ requiredFile = ${SitegeistUpload.Schema.upload().isRequired()}
 jpgFile = ${SitegeistUpload.Schema.upload().validator('Sitegeist.FusionForm.Upload:UploadedFile', {'allowedExtensions': ["jpg"]})}
 ```
 
-### Multi File - `Sitegeist.FusionForm.Upload:MultiFileUpload`
+#### Multio file upload
 
-For multiple uploads the 
-### Schema & Validation
-
-The prototype `Sitegeist.FusionForm.Upload:MultiFileUpload` allows to render a multifile field.
+For multiple uploads the prototype `Sitegeist.FusionForm.Upload:MUpload` supports the `field.multiple` property.
 It will usually be rendered in a field-container together with a rendering of previously uploaded files.
 The submitted value should be interpreted as `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection` by the
 receiving controller or the runtime form schema.
 
 ```neosfusion
-<Neos.Fusion.Form:FieldContainer label="Files" field.name="files">
+<Neos.Fusion.Form:FieldContainer label="Files" field.name="files" field.multiple={true}>
 
-    <!-- show imformations about previously uploaded files -->
+    <!-- show imformations about previously uploaded files since we  have a multifield we habe to loop here-->
     <Neos.Fusion:Loop items={field.getCurrentValue()} itemName="item" @if={field.getCurrentValue()}>
         <Neos.Fusion:Fragment @if.has={Type.instance(item, 'Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile')}>
             {item.clientFilename} ({item.clientMediaType} / {item.size}) <br/>
@@ -69,7 +68,7 @@ receiving controller or the runtime form schema.
     </Neos.Fusion:Loop>
   
     <!-- render input field -->
-    <Sitegeist.FusionForm.Upload:MultiFileUpload />
+    <Sitegeist.FusionForm.Upload:Upload />
     
 </Neos.Fusion.Form:FieldContainer>
 ```
