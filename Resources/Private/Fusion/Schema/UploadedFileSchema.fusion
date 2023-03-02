@@ -1,0 +1,8 @@
+prototype(Sitegeist.FusionForm.Upload:Schema.UploadedFile) {
+  @class = 'Sitegeist\\FusionForm\\Upload\\Schema\\UploadedFileSchemaImplementation'
+
+  allowEmptyValue = true
+  allowedExtensions = null
+  allowedMediaTypes = null
+  maximumSize = null
+}

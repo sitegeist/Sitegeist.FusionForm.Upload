@@ -19,11 +19,11 @@ of the psr-uploaded file that has an additional cache-identifier. For uploading 
 `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection` is added aswell. For both classed type converters 
 are provided that ensure that values are cached and previously submitted values are restored for processing.
 
-### Fusion prototype - `Sitegeist.FusionForm.Upload:Upload`
+### Fusion prototype - `Sitegeist.FusionForm.Upload:Field.Upload`
 
 #### Single file upload
 
-The prototype `Sitegeist.FusionForm.Upload:Upload` allows to render a single file field. 
+The prototype `Sitegeist.FusionForm.Upload:Field.Upload` allows to render a single file field. 
 It will usually be rendered in a field-container together with a rendering of previously uploaded files.
 The submitted value should be interpreted as `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile` by the
 receiving controller or the runtime form schema.
@@ -37,7 +37,7 @@ receiving controller or the runtime form schema.
     </Neos.Fusion:Fragment>
 
     <!-- the form field -->
-    <Sitegeist.FusionForm.Upload:Upload />
+    <Sitegeist.FusionForm.Upload:Field.Upload />
 
 </Neos.Fusion.Form:FieldContainer>
 ```
@@ -52,7 +52,7 @@ jpgFile = ${SitegeistUpload.Schema.upload().validator('Sitegeist.FusionForm.Uplo
 
 #### Multio file upload
 
-For multiple uploads the prototype `Sitegeist.FusionForm.Upload:MUpload` supports the `field.multiple` property.
+For multiple uploads the prototype `Sitegeist.FusionForm.Upload:Field.Upload` supports the `field.multiple` property.
 It will usually be rendered in a field-container together with a rendering of previously uploaded files.
 The submitted value should be interpreted as `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection` by the
 receiving controller or the runtime form schema.
@@ -68,7 +68,7 @@ receiving controller or the runtime form schema.
     </Neos.Fusion:Loop>
   
     <!-- render input field -->
-    <Sitegeist.FusionForm.Upload:Upload />
+    <Sitegeist.FusionForm.Upload:Field.Upload />
     
 </Neos.Fusion.Form:FieldContainer>
 ```
