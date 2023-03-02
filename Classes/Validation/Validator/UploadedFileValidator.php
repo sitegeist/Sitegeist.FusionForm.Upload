@@ -15,6 +15,7 @@ namespace Sitegeist\FusionForm\Upload\Validation\Validator;
 
 use Neos\Flow\Validation\Validator\AbstractValidator;
 use Neos\Flow\ResourceManagement\PersistentResource;
+use Neos\Utility\MediaTypes;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
@@ -63,20 +64,27 @@ class UploadedFileValidator extends AbstractValidator
                 ]
             );
         }
-        if ($this->options['allowedMediaTypes'] && !in_array($upload->getClientMediaType(), $this->options['allowedMediaTypes'])) {
-            $this->addError(
-                'The media type has to be one of "%s", "%s" is not allowed.',
-                1675443677,
-                [
-                    implode(', ', $this->options['allowedMediaTypes']),
-                    $upload->getClientMediaType()
-                ]
-            );
+        if ($this->options['allowedMediaTypes']) {
+            $mediaType = $upload->getClientMediaType();
+            $successfullMatched = false;
+            if ($mediaType === null || $mediaType === '') {
+                $this->addError('The file has no media type.', 1677786193);
+            } else {
+                foreach ($this->options['allowedMediaTypes'] as $mediaRange) {
+                    if (MediaTypes::mediaRangeMatches($mediaRange, $mediaType, )) {
+                        $successfullMatched = true;
+                        break;
+                    }
+                }
+                if ($successfullMatched === false) {
+                    $this->addError('The mediaType "%s" is not allowed.', 1677786200, [$mediaType]);
+                }
+            }
         }
         if ($this->options['maximumSize'] && $upload->getSize() > $this->options['maximumSize']) {
             $this->addError(
                 'The file must not be larger than "%s" bytes, "%s" bytes were sent.',
-                1675443897,
+                1677786206,
                 [
                     $this->maximumSize,
                     $upload->getSize()

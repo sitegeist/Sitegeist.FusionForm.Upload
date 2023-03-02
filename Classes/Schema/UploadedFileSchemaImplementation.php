@@ -9,6 +9,7 @@ use Neos\Flow\Validation\Error;
 use Neos\Fusion\Form\Runtime\Domain\SchemaInterface;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 use Neos\Http\Factories\FlowUploadedFile;
+use Neos\Utility\MediaTypes;
 use Psr\Http\Message\UploadedFileInterface;
 use Sitegeist\FusionForm\Upload\Storage\CachedUploadedFileStorage;
 
@@ -68,21 +69,28 @@ class UploadedFileSchemaImplementation extends AbstractFusionObject implements S
             ));
         }
 
-        if ($this->allowedMediaTypes && !in_array($data->getClientMediaType(), $this->allowedMediaTypes)) {
-            $result->addError(new Error(
-                'The media type has to be one of "%s", "%s" is not allowed.',
-                1675443677,
-                [
-                    implode(', ', $this->allowedMediaTypes),
-                    $data->getClientMediaType()
-                ]
-            ));
+        if ($this->allowedMediaTypes) {
+            $mediaType = $data->getClientMediaType();
+            $successfullMatched = false;
+            if ($mediaType === null || $mediaType === '') {
+                $result->addError(new Error('The file has no media type.', 1677786211));
+            } else {
+                foreach ($this->allowedMediaTypes as $mediaRange) {
+                    if (MediaTypes::mediaRangeMatches($mediaRange, $mediaType, )) {
+                        $successfullMatched = true;
+                        break;
+                    }
+                }
+                if ($successfullMatched === false) {
+                    $result->addError(new Error('The mediaType "%s" is not allowed.', 1677786219, [$mediaType]));
+                }
+            }
         }
 
         if ($this->maximumSize && $data->getSize() > $this->maximumSize) {
             $result->addError(new Error(
                 'The file must not be larger than "%s" bytes, "%s" bytes were sent.',
-                1675443897,
+                1677786224,
                 [
                     $this->maximumSize,
                     $data->getSize()
