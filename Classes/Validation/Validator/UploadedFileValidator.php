@@ -35,7 +35,8 @@ class UploadedFileValidator extends AbstractValidator
      */
     protected $supportedOptions = [
         'allowedExtensions' => [[], 'Array of allowed file extensions', 'array', false],
-        'allowedMediaTypes' => [[], 'Array of allowed media types', 'array', false]
+        'allowedMediaTypes' => [[], 'Array of allowed media types', 'array', false],
+        'maximumSize' => [null, 'Maximum size in bytes', 'int', false]
     ];
 
     /**
@@ -69,6 +70,16 @@ class UploadedFileValidator extends AbstractValidator
                 [
                     implode(', ', $this->options['allowedMediaTypes']),
                     $upload->getClientMediaType()
+                ]
+            );
+        }
+        if ($this->options['maximumSize'] && $upload->getSize() > $this->options['maximumSize']) {
+            $this->addError(
+                'The file must not be larger than "%s" bytes, "%s" bytes were sent.',
+                1675443897,
+                [
+                    $this->maximumSize,
+                    $upload->getSize()
                 ]
             );
         }

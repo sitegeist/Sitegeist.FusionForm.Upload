@@ -82,7 +82,7 @@ class UploadedFileSchemaImplementation extends AbstractFusionObject implements S
         if ($this->maximumSize && $data->getSize() > $this->maximumSize) {
             $result->addError(new Error(
                 'The file must not be larger than "%s" bytes, "%s" bytes were sent.',
-                1675443677,
+                1675443897,
                 [
                     $this->maximumSize,
                     $data->getSize()
