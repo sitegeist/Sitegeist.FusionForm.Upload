@@ -34,7 +34,8 @@ class UploadedFileCollectionValidator extends AbstractValidator
      */
     protected $supportedOptions = [
         'allowedExtensions' => [[], 'Array of allowed file extensions', 'array', false],
-        'allowedMediaTypes' => [[], 'Array of allowed media types', 'array', false]
+        'allowedMediaTypes' => [[], 'Array of allowed media types', 'array', false],
+        'maximumSize' => [null, 'Maximum size in bytes', 'int', false]
     ];
 
     /**

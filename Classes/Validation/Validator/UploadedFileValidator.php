@@ -86,7 +86,7 @@ class UploadedFileValidator extends AbstractValidator
                 'The file must not be larger than "%s" bytes, "%s" bytes were sent.',
                 1677786206,
                 [
-                    $this->maximumSize,
+                    $this->options['maximumSize'],
                     $upload->getSize()
                 ]
             );

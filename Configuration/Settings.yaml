@@ -3,6 +3,3 @@ Neos:
     fusion:
       autoInclude:
         'Sitegeist.FusionForm.Upload': true
-  Fusion:
-    defaultContext:
-      SitegeistUpload.Schema: 'Sitegeist\FusionForm\Upload\Schema\SchemaHelper'

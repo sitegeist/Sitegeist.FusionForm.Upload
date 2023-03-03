@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Sitegeist\FusionForm\Upload\Domain;
 
-class CachedUploadFileCollection implements \IteratorAggregate, \Countable
+class CachedUploadedFileCollection implements \IteratorAggregate, \Countable
 {
     /**
      * @var CachedUploadedFile[]

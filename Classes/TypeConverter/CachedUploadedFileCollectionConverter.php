@@ -11,7 +11,7 @@ use Neos\Flow\Property\Exception\TypeConverterException;
 use Neos\Flow\Property\PropertyMappingConfigurationInterface;
 use Neos\Flow\Property\TypeConverter\AbstractTypeConverter;
 use Sitegeist\FusionForm\Upload\Domain\CachedUploadedFile;
-use Sitegeist\FusionForm\Upload\Domain\CachedUploadFileCollection;
+use Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection;
 use Sitegeist\FusionForm\Upload\Storage\CachedUploadedFileStorage;
 
 class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
@@ -38,7 +38,7 @@ class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
      * @var string
      * @api
      */
-    protected $targetType = CachedUploadFileCollection::class;
+    protected $targetType = CachedUploadedFileCollection::class;
 
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
     {
@@ -62,7 +62,7 @@ class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
                     $files[] = $this->cachedUploadedFileStorage->retrieve($item);
                 }
             }
-            return new CachedUploadFileCollection(... $files);
+            return new CachedUploadedFileCollection(... $files);
         }
         throw new TypeConverterException('cannot convert');
     }

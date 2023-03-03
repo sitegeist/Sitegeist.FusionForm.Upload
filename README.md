@@ -45,9 +45,9 @@ receiving controller or the runtime form schema.
 The according schema runtime forms will likely look like this.
 
 ```neosfusion
-file = ${SitegeistUpload.Schema.upload()}
-requiredFile = ${SitegeistUpload.Schema.upload().isRequired()}
-jpgFile = ${SitegeistUpload.Schema.upload().validator('Sitegeist.FusionForm.Upload:UploadedFile', {'allowedExtensions': ["jpg"]})}
+file = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFile')}
+requiredFile = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFile').required}
+jpgFile = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFile').validator('Sitegeist.FusionForm.Upload:UploadedFile', {'allowedExtensions': ["jpg"]})}
 ```
 
 #### Multio file upload
@@ -76,9 +76,9 @@ receiving controller or the runtime form schema.
 The according schema runtime forms will likely look like this.
 
 ```neosfusion
-files = ${SitegeistUpload.Schema.uploads()}
-requiredFiles = ${SitegeistUpload.Schema.uploads().isRequired()}
-jpgFiles = ${SitegeistUpload.Schema.uploads().validator('Sitegeist.FusionForm.Upload:UploadedFileCollection', {'allowedExtensions': ["jpg"]})}
+file = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFileCollection')}
+requiredFile = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFileCollection').required}
+jpgFile = ${Form.Schema.forType('Sitegeist\\FusionForm\\Upload\\Domain\\CachedUploadedFileCollection').validator('Sitegeist.FusionForm.Upload:UploadedFileCollection', {'allowedExtensions': ["jpg"]})}
 ```
 
 ## Attaching uploaded files in emails
