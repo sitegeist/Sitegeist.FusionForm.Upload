@@ -58,6 +58,10 @@ class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
                         $uploadedFile = $this->cachedUploadedFileStorage->store($item);
                         $files[] = $uploadedFile;
                     }
+                } elseif (is_array($item) && array_key_exists('originallySubmittedResource', $item)) {
+                    if (is_array($item['originallySubmittedResource']) && array_key_exists('__identity', $item['originallySubmittedResource'])) {
+                        $files[] = $this->cachedUploadedFileStorage->retrieve($item['originallySubmittedResource']['__identity']);
+                    }
                 } elseif (is_string($item) && !empty($item)) {
                     $files[] = $this->cachedUploadedFileStorage->retrieve($item);
                 }
