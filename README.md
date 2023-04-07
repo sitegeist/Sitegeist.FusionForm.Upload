@@ -1,14 +1,5 @@
 # Sitegeist.FusionForm.Upload
-
-> Alternate implementations of upload fields for Fusion.Forms 
-
-### Authors & Sponsors
-
-* Martin Ficzel - ficzel@sitegeist.de
-
-*The development and the public-releases of this package is generously sponsored by our employer http://www.sitegeist.de.*
-
-## About
+## Alternate implementations of `Neos.Fusion.Forms:Upload`
 
 The package implements file uploads for Fusion.Forms with the main deviation that uploaded files are persisted in 
 a cache and not as persistent resources. This has the advantage that resources do not have to manually cleaned and
@@ -18,6 +9,14 @@ To achieve this the package adds the classes `\Sitegeist\FusionForm\Upload\Domai
 of the psr-uploaded file that has an additional cache-identifier. For uploading multiple files the collection
 `\Sitegeist\FusionForm\Upload\Domain\CachedUploadedFileCollection` is added aswell. For both classed type converters 
 are provided that ensure that values are cached and previously submitted values are restored for processing.
+
+!!! This package does not support the RuntimeForm MultiStepProcess yet, this may be added in future versions !!! 
+
+### Authors & Sponsors
+
+* Martin Ficzel - ficzel@sitegeist.de
+
+*The development and the public-releases of this package is generously sponsored by our employer http://www.sitegeist.de.*
 
 ### Fusion prototype - `Sitegeist.FusionForm.Upload:Field.Upload`
 
