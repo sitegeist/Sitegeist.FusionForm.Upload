@@ -39,15 +39,15 @@ class CachedUploadedFileConverter extends AbstractTypeConverter
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
     {
         if ($source instanceof FlowUploadedFile) {
-            if ($source->getOriginallySubmittedResource()) {
+            if ($source->getSize() > 0) {
+                $uploadedFile = $this->cachedUploadedFileStorage->store($source);
+                return $uploadedFile;
+            } elseif ($source->getOriginallySubmittedResource()) {
                 $identifier = $source->getOriginallySubmittedResource();
                 if (is_array($identifier)) {
                     $identifier = $identifier['__identity'];
                 }
                 return $this->cachedUploadedFileStorage->retrieve($identifier);
-            } elseif ($source->getSize() > 0) {
-                $uploadedFile = $this->cachedUploadedFileStorage->store($source);
-                return $uploadedFile;
             }
         }
         if (is_string($source) && !empty($source)) {
