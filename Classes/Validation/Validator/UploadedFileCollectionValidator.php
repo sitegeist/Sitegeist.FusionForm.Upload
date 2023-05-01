@@ -53,11 +53,25 @@ class UploadedFileCollectionValidator extends AbstractValidator
             return;
         }
         $itemValidator = new UploadedFileValidator($this->options);
+        $totalSize = 0;
         foreach ($uploads as $key => $upload) {
+            if ($upload instanceof UploadedFileInterface) {
+                $totalSize += $upload->getSize();
+            }
             $itemResult = $itemValidator->validate($upload);
             if ($itemResult->hasErrors()) {
                 $this->getResult()->forProperty((string)$key)->merge($itemResult);
             }
+        }
+        if ($this->options['maximumSize'] && $totalSize > $this->options['maximumSize']) {
+            $this->addError(
+                'The total size must not be larger than "%s" bytes, "%s" bytes were sent.',
+                1677786208,
+                [
+                    $this->options['maximumSize'],
+                    $totalSize
+                ]
+            );
         }
     }
 }

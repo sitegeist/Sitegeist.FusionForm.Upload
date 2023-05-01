@@ -44,26 +44,33 @@ class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
     {
         if (is_array($source)) {
             $files = [];
-            foreach ($source as $item) {
-                if ($item instanceof FlowUploadedFile) {
-                    if ($item->getOriginallySubmittedResource()) {
-                        $identifier = $item->getOriginallySubmittedResource();
-                        if (is_string($identifier)) {
-                            $files[] = $this->cachedUploadedFileStorage->retrieve($identifier);
-                        }
-                        if (is_array($identifier) && array_key_exists('__identity', $identifier)) {
-                            $files[] = $this->cachedUploadedFileStorage->retrieve($identifier['__identity']);
-                        }
-                    } elseif ($item->getSize() > 0) {
-                        $uploadedFile = $this->cachedUploadedFileStorage->store($item);
-                        $files[] = $uploadedFile;
+
+            // new submission replace the whole collection
+            if ($source[0] instanceof FlowUploadedFile && $source[0]->getSize() > 0) {
+                foreach ($source as $item) {
+                    if ($item instanceof FlowUploadedFile && $item->getSize() > 0) {
+                        $files[] = $this->cachedUploadedFileStorage->store($item);
                     }
-                } elseif (is_array($item) && array_key_exists('originallySubmittedResource', $item)) {
-                    if (is_array($item['originallySubmittedResource']) && array_key_exists('__identity', $item['originallySubmittedResource'])) {
-                        $files[] = $this->cachedUploadedFileStorage->retrieve($item['originallySubmittedResource']['__identity']);
+                }
+            } else {
+                foreach ($source as $item) {
+                    if ($item instanceof FlowUploadedFile) {
+                        if ($item->getOriginallySubmittedResource()) {
+                            $identifier = $item->getOriginallySubmittedResource();
+                            if (is_string($identifier)) {
+                                $files[] = $this->cachedUploadedFileStorage->retrieve($identifier);
+                            }
+                            if (is_array($identifier) && array_key_exists('__identity', $identifier)) {
+                                $files[] = $this->cachedUploadedFileStorage->retrieve($identifier['__identity']);
+                            }
+                        }
+                    } elseif (is_array($item) && array_key_exists('originallySubmittedResource', $item)) {
+                        if (is_array($item['originallySubmittedResource']) && array_key_exists('__identity', $item['originallySubmittedResource'])) {
+                            $files[] = $this->cachedUploadedFileStorage->retrieve($item['originallySubmittedResource']['__identity']);
+                        }
+                    } elseif (is_string($item) && !empty($item)) {
+                        $files[] = $this->cachedUploadedFileStorage->retrieve($item);
                     }
-                } elseif (is_string($item) && !empty($item)) {
-                    $files[] = $this->cachedUploadedFileStorage->retrieve($item);
                 }
             }
             return new CachedUploadedFileCollection(... $files);
