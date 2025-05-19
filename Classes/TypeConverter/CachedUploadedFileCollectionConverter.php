@@ -40,7 +40,7 @@ class CachedUploadedFileCollectionConverter extends AbstractTypeConverter
      */
     protected $targetType = CachedUploadedFileCollection::class;
 
-    public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
+    public function convertFrom($source, $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
         if (is_array($source)) {
             $files = [];

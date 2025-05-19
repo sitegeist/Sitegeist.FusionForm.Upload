@@ -36,7 +36,7 @@ class CachedUploadedFileConverter extends AbstractTypeConverter
      */
     protected $targetType = CachedUploadedFile::class;
 
-    public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
+    public function convertFrom($source, $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
         if ($source instanceof FlowUploadedFile) {
             if ($source->getSize() > 0) {
