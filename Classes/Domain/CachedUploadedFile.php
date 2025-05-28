@@ -18,8 +18,8 @@ class CachedUploadedFile extends FlowUploadedFile
         $streamOrFile,
         ?int $size,
         int $errorStatus,
-        string $clientFilename = null,
-        string $clientMediaType = null
+        ?string $clientFilename = null,
+        ?string $clientMediaType = null
     )
     {
         parent::__construct(
